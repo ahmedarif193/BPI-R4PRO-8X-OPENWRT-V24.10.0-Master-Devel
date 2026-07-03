@@ -89,7 +89,7 @@ endif
 CORE_DEPENDS = +ucode +libucode \
 	+ucode-mod-fs +ucode-mod-nl80211 +ucode-mod-rtnl +ucode-mod-ubus +ucode-mod-uloop \
 	+libubus +libblobmsg-json \
-	+libudebug +libcurl +libjson-c
+	+libudebug +libjson-c
 OPENSSL_DEPENDS = +PACKAGE_$(1):libopenssl
 
 DRIVER_MAKEOPTS= \
@@ -622,7 +622,7 @@ TARGET_CPPFLAGS := \
 	-D_GNU_SOURCE \
 	$(if $(CONFIG_WPA_MSG_MIN_PRIORITY),-DCONFIG_MSG_MIN_PRIORITY=$(CONFIG_WPA_MSG_MIN_PRIORITY))
 
-TARGET_LDFLAGS += -lubox -lubus -lblobmsg_json -lucode -lm -lnl-tiny -ludebug -lcurl -ljson-c
+TARGET_LDFLAGS += -lubox -lubus -lblobmsg_json -lucode -lm -lnl-tiny -ludebug -ljson-c
 
 ifdef CONFIG_WPA_ENABLE_WEP
     DRIVER_MAKEOPTS += CONFIG_WEP=y
@@ -658,9 +658,6 @@ define Build/Compile/wpad
 		MULTICALL=1 \
 		wpa_cli wpa_supplicant_multi.a \
 	)
-	+$(call Build/RunMake,afc, \
-		afcd \
-	)
 	+export MAKEFLAGS="$(MAKE_JOBSERVER)"; $(TARGET_CC) -o $(PKG_BUILD_DIR)/wpad \
 		$(TARGET_CFLAGS) \
 		./files/multicall.c \
@@ -672,9 +669,6 @@ endef
 define Build/Compile/hostapd
 	+$(call Build/RunMake,hostapd, \
 		hostapd hostapd_cli \
-	)
-	+$(call Build/RunMake,afc, \
-		afcd \
 	)
 endef
 

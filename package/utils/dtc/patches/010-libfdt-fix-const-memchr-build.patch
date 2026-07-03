@@ -1,0 +1,11 @@
+--- a/libfdt/fdt_overlay.c
++++ b/libfdt/fdt_overlay.c
+@@ -412,1 +412,2 @@
+-		char *sep, *endptr;
++		const char *sep;
++		char *endptr;
+--- a/fdtput.c
++++ b/fdtput.c
+@@ -230,1 +230,1 @@
+-static int create_node(char **blob, const char *node_name)
++static int create_node(char **blob, char *node_name)

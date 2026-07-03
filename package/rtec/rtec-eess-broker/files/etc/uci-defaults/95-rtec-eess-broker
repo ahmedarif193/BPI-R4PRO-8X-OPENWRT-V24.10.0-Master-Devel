@@ -1,0 +1,270 @@
+#!/bin/sh
+set -eu
+
+BROKER_IPV4="${BROKER_IPV4:-192.168.96.1}"
+BROKER_NETMASK="${BROKER_NETMASK:-255.255.255.0}"
+BROKER_IPV6="${BROKER_IPV6:-fd42:96::1}"
+BROKER_IPV6_PREFIX="${BROKER_IPV6_PREFIX:-64}"
+BROKER_DHCP_START="${BROKER_DHCP_START:-2}"
+BROKER_DHCP_LIMIT="${BROKER_DHCP_LIMIT:-9}"
+BROKER_DHCP_LEASETIME="${BROKER_DHCP_LEASETIME:-12h}"
+TLS_DIR="${TLS_DIR:-/etc/rtec-eess-broker/tls}"
+
+log() {
+	echo "rtec-eess-broker: $*"
+}
+
+configure_system() {
+	uci -q batch <<-EOF
+		set system.@system[0].hostname='openwrt'
+	EOF
+	uci -q commit system
+}
+
+configure_network() {
+	uci -q batch <<-EOF
+		set network.lan.proto='static'
+		set network.lan.ipaddr='$BROKER_IPV4'
+		set network.lan.netmask='$BROKER_NETMASK'
+		set network.lan.delegate='0'
+		delete network.lan.ip6addr
+		add_list network.lan.ip6addr='$BROKER_IPV6/$BROKER_IPV6_PREFIX'
+	EOF
+	uci -q commit network
+}
+
+configure_dhcp() {
+	uci -q batch <<-EOF
+		set dhcp.@dnsmasq[0].domainneeded='1'
+		set dhcp.@dnsmasq[0].boguspriv='1'
+		set dhcp.@dnsmasq[0].local='/lan/'
+		set dhcp.@dnsmasq[0].domain='lan'
+		set dhcp.@dnsmasq[0].expandhosts='1'
+		set dhcp.@dnsmasq[0].authoritative='1'
+		set dhcp.@dnsmasq[0].localservice='0'
+		set dhcp.@dnsmasq[0].nonwildcard='1'
+		delete dhcp.@dnsmasq[0].listen_address
+		add_list dhcp.@dnsmasq[0].listen_address='$BROKER_IPV4'
+		add_list dhcp.@dnsmasq[0].listen_address='$BROKER_IPV6'
+
+		delete dhcp.rtec_broker_aliases
+		set dhcp.rtec_broker_aliases='hostrecord'
+		add_list dhcp.rtec_broker_aliases.name='openwrt'
+		add_list dhcp.rtec_broker_aliases.name='openwrt.lan'
+		add_list dhcp.rtec_broker_aliases.name='broker'
+		add_list dhcp.rtec_broker_aliases.name='broker.lan'
+		add_list dhcp.rtec_broker_aliases.name='server'
+		add_list dhcp.rtec_broker_aliases.name='server.lan'
+		add_list dhcp.rtec_broker_aliases.name='pms'
+		add_list dhcp.rtec_broker_aliases.name='pms.lan'
+		add_list dhcp.rtec_broker_aliases.ip='$BROKER_IPV4'
+		add_list dhcp.rtec_broker_aliases.ip='$BROKER_IPV6'
+
+		delete dhcp.lan
+		set dhcp.lan='dhcp'
+		set dhcp.lan.interface='lan'
+		set dhcp.lan.start='$BROKER_DHCP_START'
+		set dhcp.lan.limit='$BROKER_DHCP_LIMIT'
+		set dhcp.lan.leasetime='$BROKER_DHCP_LEASETIME'
+		set dhcp.lan.dhcpv4='server'
+		set dhcp.lan.ra='server'
+		set dhcp.lan.ra_management='0'
+
+		delete dhcp.wan
+		set dhcp.wan='dhcp'
+		set dhcp.wan.interface='wan'
+		set dhcp.wan.ignore='1'
+
+		delete dhcp.eess2_none
+		set dhcp.eess2_none='host'
+		set dhcp.eess2_none.name='eess2-NONE'
+		set dhcp.eess2_none.mac='20:46:a1:0d:f9:1f'
+		set dhcp.eess2_none.ip='192.168.96.3'
+
+		delete dhcp.xrcpsim2
+		set dhcp.xrcpsim2='host'
+		set dhcp.xrcpsim2.name='xrcpsim2'
+		set dhcp.xrcpsim2.mac='20:46:a1:0d:f9:1e'
+		set dhcp.xrcpsim2.ip='192.168.96.4'
+
+		delete dhcp.thinkpad
+		set dhcp.thinkpad='host'
+		set dhcp.thinkpad.name='thinkpad'
+		set dhcp.thinkpad.mac='78:2d:7e:15:d0:ab'
+		set dhcp.thinkpad.ip='192.168.96.5'
+
+		delete dhcp.xrcpsim
+		set dhcp.xrcpsim='host'
+		set dhcp.xrcpsim.name='xrcpsim'
+		set dhcp.xrcpsim.mac='20:46:a1:0d:f9:22'
+		set dhcp.xrcpsim.ip='192.168.96.6'
+
+		delete dhcp.eess1_none
+		set dhcp.eess1_none='host'
+		set dhcp.eess1_none.name='eess1-NONE'
+		set dhcp.eess1_none.mac='20:46:a1:0d:f9:23'
+		set dhcp.eess1_none.ip='192.168.96.7'
+	EOF
+	uci -q commit dhcp
+}
+
+configure_firewall() {
+	uci -q batch <<-EOF
+		set firewall.rtec_mqtt='rule'
+		set firewall.rtec_mqtt.name='Allow-XRCP-MQTT'
+		set firewall.rtec_mqtt.src='lan'
+		set firewall.rtec_mqtt.proto='tcp'
+		set firewall.rtec_mqtt.dest_port='1883'
+		set firewall.rtec_mqtt.target='ACCEPT'
+
+		set firewall.rtec_mqtt_tls='rule'
+		set firewall.rtec_mqtt_tls.name='Allow-XRCP-MQTT-TLS'
+		set firewall.rtec_mqtt_tls.src='lan'
+		set firewall.rtec_mqtt_tls.proto='tcp'
+		set firewall.rtec_mqtt_tls.dest_port='8883'
+		set firewall.rtec_mqtt_tls.target='ACCEPT'
+
+		set firewall.rtec_redis='rule'
+		set firewall.rtec_redis.name='Allow-XRCP-Redis'
+		set firewall.rtec_redis.src='lan'
+		set firewall.rtec_redis.proto='tcp'
+		set firewall.rtec_redis.dest_port='6379'
+		set firewall.rtec_redis.target='ACCEPT'
+	EOF
+	uci -q commit firewall
+}
+
+ensure_tls() {
+	local reqconf="$TLS_DIR/server.cnf"
+
+	mkdir -p "$TLS_DIR"
+	chmod 700 "$TLS_DIR"
+
+	if [ ! -s "$TLS_DIR/ca.key" ] || [ ! -s "$TLS_DIR/ca.crt" ]; then
+		log "generating local MQTT CA"
+		openssl genrsa -out "$TLS_DIR/ca.key" 4096
+		openssl req -x509 -new -nodes -key "$TLS_DIR/ca.key" -sha256 -days 3650 \
+			-subj "/CN=XRCP EESS Broker CA" \
+			-out "$TLS_DIR/ca.crt"
+	fi
+
+	cat > "$reqconf" <<-EOF
+		[req]
+		prompt = no
+		distinguished_name = dn
+		req_extensions = req_ext
+
+		[dn]
+		CN = openwrt
+
+		[req_ext]
+		subjectAltName = @alt_names
+
+		[alt_names]
+		DNS.1 = openwrt
+		DNS.2 = openwrt.lan
+		DNS.3 = broker
+		DNS.4 = broker.lan
+		DNS.5 = server
+		DNS.6 = server.lan
+		DNS.7 = pms
+		DNS.8 = pms.lan
+		IP.1 = $BROKER_IPV4
+		IP.2 = $BROKER_IPV6
+	EOF
+
+	if [ ! -s "$TLS_DIR/server.key" ] || [ ! -s "$TLS_DIR/server.crt" ]; then
+		log "generating MQTT TLS server certificate"
+		openssl genrsa -out "$TLS_DIR/server.key" 2048
+		openssl req -new -key "$TLS_DIR/server.key" -out "$TLS_DIR/server.csr" -config "$reqconf"
+		openssl x509 -req -in "$TLS_DIR/server.csr" \
+			-CA "$TLS_DIR/ca.crt" -CAkey "$TLS_DIR/ca.key" -CAcreateserial \
+			-out "$TLS_DIR/server.crt" -days 825 -sha256 \
+			-extensions req_ext -extfile "$reqconf"
+	fi
+
+	rm -f "$TLS_DIR/server.csr" "$reqconf"
+
+	chmod 600 "$TLS_DIR/ca.key"
+	chmod 644 "$TLS_DIR/ca.crt" "$TLS_DIR/server.crt"
+	chmod 640 "$TLS_DIR/server.key"
+	chown mosquitto:mosquitto "$TLS_DIR/server.key" "$TLS_DIR/server.crt" "$TLS_DIR/ca.crt" 2>/dev/null || true
+}
+
+configure_mosquitto() {
+	ensure_tls
+	uci -q batch <<-EOF
+		set mosquitto.owrt='owrt'
+		set mosquitto.owrt.use_uci='1'
+
+		delete mosquitto.mosquitto
+		set mosquitto.mosquitto='mosquitto'
+		set mosquitto.mosquitto.per_listener_settings='1'
+		set mosquitto.mosquitto.sys_interval='10'
+		set mosquitto.mosquitto.connection_messages='1'
+		set mosquitto.mosquitto.set_tcp_nodelay='1'
+		add_list mosquitto.mosquitto.log_dest='syslog'
+		add_list mosquitto.mosquitto.log_types='error'
+		add_list mosquitto.mosquitto.log_types='warning'
+		add_list mosquitto.mosquitto.log_types='notice'
+
+		delete mosquitto.persistence
+		set mosquitto.persistence='persistence'
+		set mosquitto.persistence.persistence='1'
+		set mosquitto.persistence.location='/var/lib/mosquitto/'
+
+		delete mosquitto.xrcp_plain
+		set mosquitto.xrcp_plain='listener'
+		set mosquitto.xrcp_plain.port='1883'
+		set mosquitto.xrcp_plain.allow_anonymous='1'
+		set mosquitto.xrcp_plain.max_queued_messages='10000'
+
+		delete mosquitto.xrcp_tls
+		set mosquitto.xrcp_tls='listener'
+		set mosquitto.xrcp_tls.port='8883'
+		set mosquitto.xrcp_tls.allow_anonymous='1'
+		set mosquitto.xrcp_tls.cafile='$TLS_DIR/ca.crt'
+		set mosquitto.xrcp_tls.certfile='$TLS_DIR/server.crt'
+		set mosquitto.xrcp_tls.keyfile='$TLS_DIR/server.key'
+		set mosquitto.xrcp_tls.tls_version='tlsv1.2'
+		set mosquitto.xrcp_tls.max_queued_messages='10000'
+	EOF
+	uci -q commit mosquitto
+}
+
+configure_redis() {
+	local conf="/etc/redis.conf"
+
+	[ -f "$conf" ] || return 0
+
+	if grep -q '^bind ' "$conf"; then
+		sed -i 's/^bind .*/bind 0.0.0.0 ::/' "$conf"
+	else
+		printf '\nbind 0.0.0.0 ::\n' >> "$conf"
+	fi
+
+	if grep -q '^protected-mode ' "$conf"; then
+		sed -i 's/^protected-mode .*/protected-mode no/' "$conf"
+	else
+		printf 'protected-mode no\n' >> "$conf"
+	fi
+}
+
+enable_services() {
+	/etc/init.d/dnsmasq enable 2>/dev/null || true
+	/etc/init.d/mosquitto enable 2>/dev/null || true
+	/etc/init.d/redis enable 2>/dev/null || true
+}
+
+apply_config() {
+	configure_system
+	configure_network
+	configure_dhcp
+	configure_firewall
+	configure_mosquitto
+	configure_redis
+	enable_services
+	log "configured broker at $BROKER_IPV4 and $BROKER_IPV6"
+}
+
+apply_config

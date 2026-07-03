@@ -15,7 +15,7 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=https://github.com/mtk-openwrt/arm-trusted-firmware.git
 PKG_SOURCE_DATE:=2024-01-17
 PKG_SOURCE_VERSION:=bacca82a8cac369470df052a9d801a0ceb9b74ca
-PKG_MIRROR_HASH:=1138649f64ac3982330925c38c795ca6860289adbd95755991f80afa30ebdea7
+PKG_MIRROR_HASH:=93fa1a61e810ed7753801f007e3ee3fa425f93ba65e19dbb64aaa78d061b239b
 
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 
