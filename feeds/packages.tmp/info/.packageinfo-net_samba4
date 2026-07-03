@@ -47,7 +47,7 @@ Description:   installs: smbd (nmbd) smbpasswd pdbedit testparm (nmblookup) (smb
   HINT: https://fitzcarraldoblog.wordpress.com/2016/10/17/a-correct-method-of-configuring-samba-for-browsing-smb-shares-in-a-home-network/
 @@
 Config:
-  source "feeds/packages/net/samba4/Config.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/samba4/Config.in"
 @@
 
 Package: samba4-client

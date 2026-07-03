@@ -22,7 +22,7 @@ Description:  StrongSwan is an OpenSource IPsec implementation for the Linux ope
  This package contains shared libraries and scripts.
 @@
 Config:
-  source "feeds/packages/net/strongswan/Config.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/strongswan/Config.in"
 @@
 
 Package: strongswan-default

@@ -24,7 +24,7 @@ Package: lmdb-utils
 Version: 0.9.33-r1
 Depends: +libc 
 Conflicts: 
-Menu-Depends:  lmdb
+Menu-Depends: lmdb
 Provides: 
 Section: libs
 Category: Libraries
@@ -43,7 +43,7 @@ Package: lmdb-test
 Version: 0.9.33-r1
 Depends: +libc 
 Conflicts: 
-Menu-Depends:  lmdb
+Menu-Depends: lmdb
 Provides: 
 Section: libs
 Category: Libraries

@@ -23,7 +23,7 @@ Type: ipkg
 Description:  Dovecot is a program which provides POP3 and IMAP services.
 @@
 Config:
-	source "feeds/packages/mail/dovecot/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/mail/dovecot/Config.in"
 @@
 
 Package: dovecot-utils

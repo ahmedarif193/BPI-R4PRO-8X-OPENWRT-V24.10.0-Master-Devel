@@ -23,7 +23,7 @@ Description:   Rust is a multi-paradigm, general-purpose programming language de
   guarantee memory safety by using a borrow checker to validate references.
 @@
 Config:
-  source "feeds/packages/lang/rust/Config.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/lang/rust/Config.in"
 @@
 
 

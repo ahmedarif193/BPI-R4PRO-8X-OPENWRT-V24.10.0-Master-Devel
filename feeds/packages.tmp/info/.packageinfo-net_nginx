@@ -21,7 +21,7 @@ Type: ipkg
 Description:  nginx is an HTTP and reverse proxy server, as well as a mail proxy server, written by Igor Sysoev. This variant is compiled with SSL support enabled. To enable additional module select them in the nginx default configuration menu.
 @@
 Config:
-  source "feeds/packages/net/nginx/Config_ssl.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/nginx/Config_ssl.in"
 @@
 
 Package: nginx-full

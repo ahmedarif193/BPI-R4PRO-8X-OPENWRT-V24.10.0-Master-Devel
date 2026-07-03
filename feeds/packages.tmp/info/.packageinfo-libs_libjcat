@@ -21,7 +21,7 @@ Description:   libjcat allows reading and writing gzip-compressed JSON catalog f
   which can be used to store GPG, PKCS-7 and SHA-256 checksums for each file.
 @@
 Config:
-	source "feeds/packages/libs/libjcat/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/libs/libjcat/Config.in"
 @@
 
 

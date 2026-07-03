@@ -25,7 +25,7 @@ Description:  open62541 (http://open62541.org) is an open source and free implem
  library is platform independent.
 @@
 Config:
-        source "feeds/packages/libs/libopen62541/Config.in"
+        source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/libs/libopen62541/Config.in"
 @@
 
 

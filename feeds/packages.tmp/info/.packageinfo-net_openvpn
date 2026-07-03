@@ -22,7 +22,7 @@ Type: ipkg
 Description: Open source VPN solution using OpenSSL
 @@
 Config:
-	source "feeds/packages/net/openvpn/Config-openssl.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/openvpn/Config-openssl.in"
 @@
 
 Package: openvpn-mbedtls
@@ -47,7 +47,7 @@ Type: ipkg
 Description: Open source VPN solution using mbedTLS
 @@
 Config:
-	source "feeds/packages/net/openvpn/Config-mbedtls.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/openvpn/Config-mbedtls.in"
 @@
 
 Package: openvpn-wolfssl
@@ -72,7 +72,7 @@ Type: ipkg
 Description: Open source VPN solution using WolfSSL
 @@
 Config:
-	source "feeds/packages/net/openvpn/Config-wolfssl.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/openvpn/Config-wolfssl.in"
 @@
 
 

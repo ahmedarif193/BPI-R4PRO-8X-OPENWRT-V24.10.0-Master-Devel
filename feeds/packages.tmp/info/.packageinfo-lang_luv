@@ -20,7 +20,7 @@ Type: ipkg
 Description:   Bare libuv bindings for lua
 @@
 Config:
-	source "feeds/packages/lang/luv/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/lang/luv/Config.in"
 @@
 
 

@@ -22,7 +22,7 @@ Type: ipkg
 Description: OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol (LDAP). This package contains the shared LDAP client libraries, needed by other programs.
 @@
 Config:
-  source "feeds/packages/libs/openldap/Config.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/libs/openldap/Config.in"
 @@
 
 Package: openldap-utils

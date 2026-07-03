@@ -34,7 +34,7 @@ Description:  This project (pronounced gen'-see-oh) is used to abstract stream I
  This package contains the runtime libraries.
 @@
 Config:
-	source "feeds/packages/net/gensio/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/gensio/Config.in"
 @@
 
 Package: gensio-bin
@@ -69,7 +69,7 @@ Description:  This project (pronounced gen'-see-oh) is used to abstract stream I
  This package contains the command-line tools.
 @@
 Config:
-	source "feeds/packages/net/gensio/Config-bin.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/gensio/Config-bin.in"
 @@
 
 Package: python3-gensio

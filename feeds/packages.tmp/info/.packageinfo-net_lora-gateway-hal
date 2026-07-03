@@ -19,7 +19,7 @@ Description:   Driver/HAL library for Semtech SX1301 multi-channel modem and
   SX1257/SX1255 RF transceivers.
 @@
 Config:
-	source "feeds/packages/net/lora-gateway-hal/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/lora-gateway-hal/Config.in"
 @@
 
 Package: libloragw-tests

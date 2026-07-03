@@ -25,7 +25,7 @@ Description: 	ZNC is an IRC bouncer with many advanced features like detaching,
 	bouncing, and c++ module support to name a few.
 @@
 Config:
-	source "feeds/packages/net/znc/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/znc/Config.in"
 @@
 
 Package: znc-mod-adminlog

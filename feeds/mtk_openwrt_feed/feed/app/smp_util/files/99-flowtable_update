@@ -1,8 +1,0 @@
-#!/bin/sh
-
-if [ add = "$ACTION" ]; then
-	if [ "$DEVICENAME" != "" ]; then
-		sh /sbin/smp-mt76.sh
-	fi
-fi
-

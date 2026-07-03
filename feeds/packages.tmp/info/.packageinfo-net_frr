@@ -29,7 +29,7 @@ Description:   FRRouting is free software that implements and manages various IP
   NHRP.
 @@
 Config:
-  source "feeds/packages/net/frr/Config.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/frr/Config.in"
 @@
 
 Package: frr-pythontools

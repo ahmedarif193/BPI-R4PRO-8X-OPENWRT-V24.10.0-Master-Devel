@@ -38,7 +38,7 @@ Type: ipkg
 Description: Simple interprocess messaging system (daemon)
 @@
 Config:
-  source "feeds/packages/utils/dbus/Config.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/utils/dbus/Config.in"
 @@
 
 Package: dbus-utils

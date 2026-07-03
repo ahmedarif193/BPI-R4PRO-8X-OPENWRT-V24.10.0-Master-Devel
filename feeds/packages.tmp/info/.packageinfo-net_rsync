@@ -28,7 +28,7 @@ Description:  rsync is a program that allows files to be copied to and from remo
  between two sets of files across the network link.
 @@
 Config:
-	source "feeds/packages/net/rsync/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/rsync/Config.in"
 @@
 
 Package: rsyncd

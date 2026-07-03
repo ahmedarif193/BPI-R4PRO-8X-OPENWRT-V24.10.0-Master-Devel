@@ -25,7 +25,7 @@ Description:   dnscrypt-proxy provides local service which can be used directly 
   a client and its first-level resolver.
 @@
 Config:
-	source "feeds/packages/net/dnscrypt-proxy/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/dnscrypt-proxy/Config.in"
 @@
 
 Package: dnscrypt-proxy-resolvers

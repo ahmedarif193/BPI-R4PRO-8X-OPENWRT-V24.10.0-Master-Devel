@@ -28,7 +28,7 @@ This package is built with SSL support.  TLS-PSK will be included (in both
 the client and broker) if OpenSSL is built with TLS-PSK support.
 @@
 Config:
-	source "feeds/packages/net/mosquitto/Config.in"
+	source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/net/mosquitto/Config.in"
 @@
 
 Package: mosquitto-nossl

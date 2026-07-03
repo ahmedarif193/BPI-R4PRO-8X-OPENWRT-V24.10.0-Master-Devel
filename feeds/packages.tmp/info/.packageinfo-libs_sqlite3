@@ -24,7 +24,7 @@ Description:  SQLite is a small C library that implements a self-contained, embe
  programs.
 @@
 Config:
-  source "feeds/packages/libs/sqlite3/Config-lib.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/libs/sqlite3/Config-lib.in"
 @@
 
 Package: sqlite3-cli
@@ -51,7 +51,7 @@ Description:  SQLite is a small C library that implements a self-contained, embe
  formats.
 @@
 Config:
-  source "feeds/packages/libs/sqlite3/Config-cli.in"
+  source "/tmp/claude-1000/-home-ahmed-WorkDir-TTE-BPI-R4PRO-8X-OPENWRT-V24-10-0-Master-Devel/cb9a22b0-f4b2-47cb-a972-146f41cf0c88/scratchpad/feedcache/packages/libs/sqlite3/Config-cli.in"
 @@
 
 
